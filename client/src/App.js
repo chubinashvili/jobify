@@ -1,15 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Landing from './pages/Landing';
+import { 
+  Dashbooard, 
+  Register,
+  Landing,
+  Error
+} from './pages/index';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<div>Dashboard</div>} />
-        <Route path='/register' element={<div>Register</div>} />
+        <Route path='/' element={<Dashbooard />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/landing' element={<Landing />} />
-        <Route path='*' element={<div>Error</div>} />
+        <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
