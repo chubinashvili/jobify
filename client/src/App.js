@@ -1,6 +1,10 @@
+import Landing from './pages/Landing';
+
 const App = () => {
   return (
-    <h1>jobify</h1>
+    <div>
+      <Landing />
+    </div>
   );
 }
 
