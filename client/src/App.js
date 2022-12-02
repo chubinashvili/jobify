@@ -5,7 +5,7 @@ import {
   Register,
   Landing,
   Error
-} from './pages/index';
+} from './pages';
 
 const App = () => {
   return (
