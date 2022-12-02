@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/auth', jobsRouter);
+app.use('/api/v1/jobs', jobsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
@@ -33,7 +33,7 @@ const start = async () => {
         await connectDB(process.env.MONGO_URL);
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
     } catch (err) {
-        console.log(error);
+        console.log(err);
     }
 }
 
