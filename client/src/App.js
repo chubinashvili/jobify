@@ -1,17 +1,30 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AllJobs, Profile, SharedLayout, Stats, AddJob } from './pages/dashboard'
-
 import { 
   Register,
   Landing,
-  Error
+  Error,
+  ProtectedRoute,
 } from './pages';
+import { 
+  AllJobs, 
+  Profile, 
+  SharedLayout, 
+  Stats, 
+  AddJob 
+} from './pages/dashboard'
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<SharedLayout />}>
+        <Route 
+          path='/' 
+          element={
+            <ProtectedRoute>
+              <SharedLayout />
+            </ProtectedRoute>
+          }>
           <Route index element={<Stats />} />
           <Route path='all-jobs' element={<AllJobs />} />
           <Route path='add-job' element={<AddJob />} />
