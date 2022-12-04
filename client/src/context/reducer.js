@@ -1,9 +1,9 @@
 import { 
     CLEAR_ALERT, 
     DISPLAY_ALERT,
-    REGISTER_USER_BEGIN,
-    REGISTER_USER_SUCCESS,
-    REGISTER_USER_ERROR,
+    SETUP_USER_BEGIN,
+    SETUP_USER_SUCCESS,
+    SETUP_USER_ERROR,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -12,9 +12,9 @@ const reducer = (state, { type, payload }) => {
             return { ...state, showAlert: true, alertType: 'danger', alertText: 'Please provide all values!'};
         case CLEAR_ALERT:
             return { ...state, showAlert: false, alertType: '', alertText: ''};
-        case REGISTER_USER_BEGIN:
+        case SETUP_USER_BEGIN:
             return { ...state, isLoading: true };
-        case REGISTER_USER_SUCCESS:
+        case SETUP_USER_SUCCESS:
             return { 
                 ...state, 
                 isLoading: false, 
@@ -24,9 +24,9 @@ const reducer = (state, { type, payload }) => {
                 jobLocation: payload.location,
                 showAlert: true,
                 alertType: 'success',
-                alertText: 'User Created! Redirecting...',
+                alertText: `${payload.alertText} Redirecting...`,
             };
-        case REGISTER_USER_ERROR:
+        case SETUP_USER_ERROR:
             return { 
                 ...state, 
                 isLoading: false, 
@@ -37,7 +37,6 @@ const reducer = (state, { type, payload }) => {
         default: 
             return state;
     }
-    // throw new Error(`no such action: ${type}`);
 }
 
 export default reducer

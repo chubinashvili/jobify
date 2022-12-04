@@ -4,9 +4,9 @@ import axios from 'axios';
 import { 
     CLEAR_ALERT, 
     DISPLAY_ALERT,
-    REGISTER_USER_BEGIN,
-    REGISTER_USER_SUCCESS,
-    REGISTER_USER_ERROR,
+    SETUP_USER_BEGIN,
+    SETUP_USER_SUCCESS,
+    SETUP_USER_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem('token');
@@ -54,21 +54,21 @@ const AppProvider = ({ children }) => {
         localStorage.removeItem('location');
     }
 
-    const registerUser = async (currentUser) => {
-        dispatch({ type: REGISTER_USER_BEGIN });
+    const setupUser = async ({ currentUser, endpoint, alertText }) => {
+        dispatch({ type: SETUP_USER_BEGIN });
         try {
-            const { data } = await axios.post('/api/v1/auth/register', currentUser);    
+            const { data } = await axios.post(`/api/v1/auth/${endpoint}`, currentUser);    
             const { user, token, location } = data;
-            dispatch({ type: REGISTER_USER_SUCCESS, payload: { user, token, location }});
+            dispatch({ type: SETUP_USER_SUCCESS, payload: { user, token, location, alertText }});
             addUserToLocalStorage({ user, token, location });
         } catch (err) {
-            dispatch({ type: REGISTER_USER_ERROR, payload: { msg: err.response.data.msg }})
+            dispatch({ type: SETUP_USER_ERROR, payload: { msg: err.response.data.msg }})
         }
         clearAlert();
     }
 
     return (
-        <AppContext.Provider value={{ ...state, displayAlert, registerUser }}>
+        <AppContext.Provider value={{ ...state, displayAlert, setupUser }}>
             {children}
         </AppContext.Provider>
     )
