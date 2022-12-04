@@ -3,6 +3,7 @@ const app = express();
 import dotenv from 'dotenv';
 dotenv.config();
 import 'express-async-errors';
+import morgan from 'morgan';
 
 // db and authenticateUser
 import connectDB from './db/connect.js';
@@ -15,6 +16,9 @@ import jobsRouter from './routes/jobsRoutes.js';
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
+if(process.env.NODE_ENV !== 'production') {
+    app.use(morgan('dev'));
+}
 app.use(express.json());
 
 app.get('/api/v1', (req, res) => {
