@@ -4,6 +4,8 @@ import {
     SETUP_USER_BEGIN,
     SETUP_USER_SUCCESS,
     SETUP_USER_ERROR,
+    TOGGLE_SIDEBAR,
+
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -34,6 +36,8 @@ const reducer = (state, { type, payload }) => {
                 alertType: 'danger',
                 alertText: payload.msg,
             };
+        case TOGGLE_SIDEBAR:
+            return { ...state, showSidebar: !state.showSidebar}
         default: 
             return state;
     }
