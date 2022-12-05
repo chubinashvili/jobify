@@ -7,6 +7,7 @@ import {
     SETUP_USER_BEGIN,
     SETUP_USER_SUCCESS,
     SETUP_USER_ERROR,
+    LOGOUT_USER,
     TOGGLE_SIDEBAR,
 } from "./actions";
 
@@ -69,12 +70,17 @@ const AppProvider = ({ children }) => {
         clearAlert();
     }
 
+    const logoutUser = () => {
+        dispatch({ type: LOGOUT_USER });
+        removeUserFromLocalStorage();
+    }
+
     const toggleSidebar = () => {
         dispatch({ type: TOGGLE_SIDEBAR });
     }
 
     return (
-        <AppContext.Provider value={{ ...state, displayAlert, setupUser, toggleSidebar }}>
+        <AppContext.Provider value={{ ...state, displayAlert, setupUser, logoutUser, toggleSidebar }}>
             {children}
         </AppContext.Provider>
     )

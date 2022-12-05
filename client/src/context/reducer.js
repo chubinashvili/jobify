@@ -1,3 +1,4 @@
+import { initialState } from './appContext.js';
 import { 
     CLEAR_ALERT, 
     DISPLAY_ALERT,
@@ -5,7 +6,7 @@ import {
     SETUP_USER_SUCCESS,
     SETUP_USER_ERROR,
     TOGGLE_SIDEBAR,
-
+    LOGOUT_USER,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -35,6 +36,14 @@ const reducer = (state, { type, payload }) => {
                 showAlert: true,
                 alertType: 'danger',
                 alertText: payload.msg,
+            };
+        case LOGOUT_USER:
+            return { 
+                ...initialState, 
+                user: null, 
+                token: null,
+                userLocation: '',
+                jobLocation: '',
             };
         case TOGGLE_SIDEBAR:
             return { ...state, showSidebar: !state.showSidebar}
