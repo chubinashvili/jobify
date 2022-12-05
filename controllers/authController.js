@@ -40,6 +40,7 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ user, token, location: user.location})
 }
 const updateUser = async (req, res) => {
+    console.log(req.user)
     res.send('updateUser');
 }
 
