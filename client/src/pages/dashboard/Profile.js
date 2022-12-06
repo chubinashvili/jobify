@@ -36,30 +36,33 @@ const Profile = () => {
           <FormRow 
             type="text"
             name="name"
+            labelText="Name"
             value={values.name}
             handleChange={handleChange}
           />
           <FormRow 
-            labelText="last name"
+            labelText="Last Name"
             type="text"
             name="lastName"
             value={values.lastName}
             handleChange={handleChange}
-          />
+            />
           <FormRow 
             type="email"
             name="email"
+            labelText="Email"
             value={values.email}
             handleChange={handleChange}
           />
           <FormRow 
             type="text"
             name="location"
+            labelText="Location"
             value={values.location}
             handleChange={handleChange}
           />
           <button className="btn btn-block" type="submit" disabled={isLoading}>
-            {isLoading ? 'Please Wait...' : 'save changes'}
+            {isLoading ? 'Please Wait...' : 'Save Changes'}
           </button>
         </div>
       </form>

@@ -10,6 +10,11 @@ import {
     UPDATE_USER_BEGIN,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_ERROR,
+    HANDLE_CHANGE,
+    CLEAR_VALUES,
+    CREATE_JOB_BEGIN,
+    CREATE_JOB_SUCCESS,
+    CREATE_JOB_ERROR,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -72,6 +77,28 @@ const reducer = (state, { type, payload }) => {
                 alertType: 'danger',
                 alertText: payload.msg,
             };
+        case HANDLE_CHANGE: 
+            return { ...state, [payload.name]: payload.value }
+        case CLEAR_VALUES:
+            return { ...state, ...initialState };
+        case CREATE_JOB_BEGIN: 
+            return { ...state, isLoading: true };
+        case CREATE_JOB_SUCCESS:
+            return { 
+                ...state, 
+                isLoading: false, 
+                showAlert: true,
+                alertType: 'success',
+                alertText: 'New Job Created!',
+            };
+        case CREATE_JOB_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                alertType: 'danger',
+                alertText: payload.msg,
+            }
         default: 
             return state;
     }
