@@ -7,6 +7,9 @@ import {
     SETUP_USER_ERROR,
     TOGGLE_SIDEBAR,
     LOGOUT_USER,
+    UPDATE_USER_BEGIN,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_ERROR,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -47,6 +50,28 @@ const reducer = (state, { type, payload }) => {
             };
         case TOGGLE_SIDEBAR:
             return { ...state, showSidebar: !state.showSidebar}
+        case UPDATE_USER_BEGIN:
+            return { ...state, isLoading: true };
+        case UPDATE_USER_SUCCESS:
+            return { 
+                ...state, 
+                isLoading: false, 
+                token: payload.token, 
+                user: payload.user, 
+                userLocation: payload.location, 
+                jobLocation: payload.location,
+                showAlert: true,
+                alertType: 'success',
+                alertText: `User Profile Updated!`,
+            };
+        case UPDATE_USER_ERROR:
+            return { 
+                ...state, 
+                isLoading: false, 
+                showAlert: true,
+                alertType: 'danger',
+                alertText: payload.msg,
+            };
         default: 
             return state;
     }

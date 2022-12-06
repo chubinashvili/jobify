@@ -9,6 +9,9 @@ import {
     SETUP_USER_ERROR,
     LOGOUT_USER,
     TOGGLE_SIDEBAR,
+    UPDATE_USER_BEGIN,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_ERROR,
 } from "./actions";
 
 const token = localStorage.getItem('token');
@@ -108,12 +111,18 @@ const AppProvider = ({ children }) => {
     }
 
     const updateUser = async (currentUser) => {
+        dispatch({ type: UPDATE_USER_BEGIN });
         try {
             const { data } = await authFetch.patch('/auth/updateUser', currentUser);
-            console.log(data);
+
+            const { user, location, token } = data;
+
+            dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, location, token }});
+            addUserToLocalStorage({ user, location, token });
         } catch (err) {
-            // console.log(err.response);
+            dispatch({ type: UPDATE_USER_ERROR, payload: { msg: err.response.data.msg }});
         }
+        clearAlert();
     }
 
     const toggleSidebar = () => {
