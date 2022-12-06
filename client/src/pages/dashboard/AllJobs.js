@@ -1,6 +1,13 @@
+import { Fragment } from 'react';
+
+import { SearchContainer, JobsContainer } from '../../components';
+
 const AllJobs = () => {
   return (
-    <h1>All Jobs Page</h1>
+    <Fragment>
+      <SearchContainer />
+      <JobsContainer />
+    </Fragment>
   )
 }
 export default AllJobs

@@ -15,6 +15,8 @@ import {
     CREATE_JOB_BEGIN,
     CREATE_JOB_SUCCESS,
     CREATE_JOB_ERROR,
+    GET_JOBS_BEGIN,
+    GET_JOBS_SUCCESS,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -98,6 +100,16 @@ const reducer = (state, { type, payload }) => {
                 showAlert: true,
                 alertType: 'danger',
                 alertText: payload.msg,
+            }
+        case GET_JOBS_BEGIN: 
+            return { ...state, isLoading: true, showAlert: false };
+        case GET_JOBS_SUCCESS: 
+            return { 
+                ...state, 
+                isLoading: false, 
+                jobs: payload.jobs, 
+                totalJobs: payload.totalJobs, 
+                numOfPages: payload.numOfPages,
             }
         default: 
             return state;
