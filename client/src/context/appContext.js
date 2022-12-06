@@ -59,9 +59,8 @@ const AppProvider = ({ children }) => {
             return response;
         },
          (err) => {
-            console.log(err.response)
             if(err.response.status === 401) {
-                console.log('AUTH ERROR');
+                logoutUser();
             }
             return Promise.reject(err);
         }
@@ -120,7 +119,9 @@ const AppProvider = ({ children }) => {
             dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, location, token }});
             addUserToLocalStorage({ user, location, token });
         } catch (err) {
-            dispatch({ type: UPDATE_USER_ERROR, payload: { msg: err.response.data.msg }});
+            if(err.response.status !== 401) {
+                dispatch({ type: UPDATE_USER_ERROR, payload: { msg: err.response.data.msg }});
+            }
         }
         clearAlert();
     }
