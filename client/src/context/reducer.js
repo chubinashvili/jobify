@@ -17,6 +17,7 @@ import {
     CREATE_JOB_ERROR,
     GET_JOBS_BEGIN,
     GET_JOBS_SUCCESS,
+    SET_EDIT_JOB,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -110,6 +111,19 @@ const reducer = (state, { type, payload }) => {
                 jobs: payload.jobs, 
                 totalJobs: payload.totalJobs, 
                 numOfPages: payload.numOfPages,
+            }
+        case SET_EDIT_JOB:
+            const job = state.jobs.find((job) => job._id === payload.id);
+            const { _id, position, company, jobLocation, jobType, status } = job;
+            return {
+                ...state,
+                isEditing: true,
+                editJobId: _id,
+                position,
+                company,
+                jobLocation,
+                jobType,
+                status,
             }
         default: 
             return state;
