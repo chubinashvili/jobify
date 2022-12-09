@@ -24,6 +24,8 @@ import {
     EDIT_JOB_BEGIN,
     EDIT_JOB_SUCCESS,
     EDIT_JOB_ERROR,
+    SHOW_STATS_BEGIN,
+    SHOW_STATS_SUCCESS,
 } from "./actions";
 
 const token = localStorage.getItem('token');
@@ -52,6 +54,8 @@ const initialState = {
     totalJobs: 0,
     page: 1,
     numOfPages: 1,
+    stats: {},
+    monthlyApplications: [],
 }
 
 const AppContext = createContext();
@@ -229,6 +233,20 @@ const AppProvider = ({ children }) => {
             logoutUser(); 
         }
     }
+
+    const showStats = async () => {
+        dispatch({ type: SHOW_STATS_BEGIN });
+        try {
+            const { data } = await authFetch('/jobs/stats');
+            dispatch({ type: SHOW_STATS_SUCCESS, payload: { 
+                stats: data.defaultStats,
+                monthlyApplications: data.monthlyApplications,
+            }})
+        } catch (err) {
+            logoutUser();
+        }
+        clearAlert();
+    }
     
     const toggleSidebar = () => {
         dispatch({ type: TOGGLE_SIDEBAR });
@@ -248,6 +266,7 @@ const AppProvider = ({ children }) => {
             setEditJob,
             editJob,
             deleteJob,
+            showStats,
             toggleSidebar,
         }}>
             {children}
