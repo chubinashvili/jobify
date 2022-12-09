@@ -24,6 +24,7 @@ import {
     EDIT_JOB_ERROR,
     SHOW_STATS_BEGIN,
     SHOW_STATS_SUCCESS,
+    CLEAR_FILTERS,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -160,6 +161,14 @@ const reducer = (state, { type, payload }) => {
                 stats: payload.stats, 
                 monthlyApplications: payload.monthlyApplications 
             };
+        case CLEAR_FILTERS:
+            return {
+                ...state,
+                search: '',
+                searchStatus: 'all',
+                searchType: 'all',
+                sort: 'all',
+            }
         default: 
             return state;
     }
