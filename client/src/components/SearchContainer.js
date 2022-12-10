@@ -39,7 +39,7 @@ const SearchContainer = () => {
         const name = e.target.name;
         const value = e.target.value;
         handleChange({ name, value });
-      }, 1000)
+      }, 500)
     }
   }
   const optimizedDebounce = useMemo(() => debounce(), [])
