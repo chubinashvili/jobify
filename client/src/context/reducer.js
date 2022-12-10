@@ -26,6 +26,7 @@ import {
     SHOW_STATS_SUCCESS,
     CLEAR_FILTERS,
     CHANGE_PAGE,
+    DELETE_JOB_ERROR,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
@@ -135,6 +136,14 @@ const reducer = (state, { type, payload }) => {
             }
         case DELETE_JOB_BEGIN: 
             return { ...state, isLoading: true };
+        case DELETE_JOB_ERROR: 
+            return {
+                ...state,
+                isLoading: false,
+                showAlert: true,
+                alertType: 'danger',
+                alertText: payload.msg,
+            };        
         case EDIT_JOB_BEGIN: 
             return { ...state, isLoading: true };
         case EDIT_JOB_SUCCESS:

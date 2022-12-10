@@ -8,15 +8,16 @@ import {
     updateJob,
     showStats,
 } from '../controllers/jobsController.js';
+import testUser from '../middleware/testUser.js';
 
 router.route('/')
-    .post(createJob)
+    .post(testUser, createJob)
     .get(getAllJobs);
 
 router.route('/stats').get(showStats);
 
 router.route('/:id')
-    .delete(deleteJob)
-    .patch(updateJob);
+    .delete(testUser, deleteJob)
+    .patch(testUser, updateJob);
 
 export default router;
