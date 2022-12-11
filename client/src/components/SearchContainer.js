@@ -18,9 +18,7 @@ const SearchContainer = () => {
   } = useAppContext();
   
   const handleSearch = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    handleChange({ name, value });
+    handleChange({ name: e.target.name, value: e.target.value });
   }
   
   const handleSubmit = (e) => {
@@ -35,16 +33,11 @@ const SearchContainer = () => {
       setLocalSearch(e.target.value);
       clearTimeout(timeoutID);
       timeoutID = setTimeout(() => {
-        const name = e.target.name;
-        const value = e.target.value;
-        handleChange({ name, value });
+        handleChange({ name: e.target.name, value: e.target.value });
       }, 500)
     }
   }
-  const optimizedDebounce = useMemo(() => {
-    debounce();
-    // eslint-disable-next-line
-  }, [])
+  const optimizedDebounce = useMemo(() => debounce(), [])
   return (
     <Wrapper>
       <form className='form'>

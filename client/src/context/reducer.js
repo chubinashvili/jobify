@@ -1,4 +1,4 @@
-import { initialState } from './appContext.js';
+import { initialState } from './appContext';
 import { 
     CLEAR_ALERT, 
     DISPLAY_ALERT,
@@ -27,21 +27,32 @@ import {
     CLEAR_FILTERS,
     CHANGE_PAGE,
     DELETE_JOB_ERROR,
+    GET_CURRENT_USER_BEGIN,
+    GET_CURRENT_USER_SUCCESS,
 } from "./actions";
 
 const reducer = (state, { type, payload }) => {
     switch (type) {
         case DISPLAY_ALERT:
-            return { ...state, showAlert: true, alertType: 'danger', alertText: 'Please provide all values!'};
+            return {
+                ...state,
+                showAlert: true,
+                alertType: 'danger',
+                alertText: 'Please provide all values!',
+            };
         case CLEAR_ALERT:
-            return { ...state, showAlert: false, alertType: '', alertText: ''};
+            return {
+                ...state,
+                showAlert: false,
+                alertType: '',
+                alertText: '',
+            };
         case SETUP_USER_BEGIN:
             return { ...state, isLoading: true };
         case SETUP_USER_SUCCESS:
             return { 
                 ...state, 
                 isLoading: false, 
-                token: payload.token, 
                 user: payload.user, 
                 userLocation: payload.location, 
                 jobLocation: payload.location,
@@ -51,54 +62,69 @@ const reducer = (state, { type, payload }) => {
             };
         case SETUP_USER_ERROR:
             return { 
-                ...state, 
-                isLoading: false, 
+                ...state,
+                isLoading: false,
                 showAlert: true,
                 alertType: 'danger',
                 alertText: payload.msg,
             };
         case LOGOUT_USER:
             return { 
-                ...initialState, 
-                user: null, 
-                token: null,
-                userLocation: '',
-                jobLocation: '',
+                ...initialState,
+                userLoading: false,
             };
         case TOGGLE_SIDEBAR:
-            return { ...state, showSidebar: !state.showSidebar}
+            return {
+                ...state,
+                showSidebar: !state.showSidebar,
+            }
         case UPDATE_USER_BEGIN:
             return { ...state, isLoading: true };
         case UPDATE_USER_SUCCESS:
             return { 
-                ...state, 
-                isLoading: false, 
-                token: payload.token, 
-                user: payload.user, 
-                userLocation: payload.location, 
+                ...state,
+                isLoading: false,
+                user: payload.user,
+                userLocation: payload.location,
                 jobLocation: payload.location,
                 showAlert: true,
                 alertType: 'success',
-                alertText: `User Profile Updated!`,
+                alertText: 'User Profile Updated!',
             };
         case UPDATE_USER_ERROR:
             return { 
-                ...state, 
-                isLoading: false, 
+                ...state,
+                isLoading: false,
                 showAlert: true,
                 alertType: 'danger',
                 alertText: payload.msg,
             };
         case HANDLE_CHANGE: 
-            return { ...state, [payload.name]: payload.value }
+            return {
+                ...state,
+                page: 1,
+                [payload.name]: payload.value,
+            }
         case CLEAR_VALUES:
-            return { ...state, ...initialState };
+            const initialStateForClear = {
+                isEditing: false,
+                editJobId: '',
+                position: '',
+                company: '',
+                jobLocation: state.userLocation,
+                jobType: 'full-time',
+                status: 'pending',
+            };
+            return {
+                ...state,
+                ...initialStateForClear,
+            };
         case CREATE_JOB_BEGIN: 
             return { ...state, isLoading: true };
-        case CREATE_JOB_SUCCESS:
+        case CREATE_JOB_SUCCESS: 
             return { 
-                ...state, 
-                isLoading: false, 
+                ...state,
+                isLoading: false,
                 showAlert: true,
                 alertType: 'success',
                 alertText: 'New Job Created!',
@@ -115,25 +141,25 @@ const reducer = (state, { type, payload }) => {
             return { ...state, isLoading: true, showAlert: false };
         case GET_JOBS_SUCCESS: 
             return { 
-                ...state, 
-                isLoading: false, 
-                jobs: payload.jobs, 
-                totalJobs: payload.totalJobs, 
+                ...state,
+                isLoading: false,
+                jobs: payload.jobs,
+                totalJobs: payload.totalJobs,
                 numOfPages: payload.numOfPages,
             }
         case SET_EDIT_JOB:
             const job = state.jobs.find((job) => job._id === payload.id);
             const { _id, position, company, jobLocation, jobType, status } = job;
             return {
-                ...state,
-                isEditing: true,
-                editJobId: _id,
-                position,
-                company,
-                jobLocation,
-                jobType,
-                status,
-            }
+              ...state,
+              isEditing: true,
+              editJobId: _id,
+              position,
+              company,
+              jobLocation,
+              jobType,
+              status,
+            };
         case DELETE_JOB_BEGIN: 
             return { ...state, isLoading: true };
         case DELETE_JOB_ERROR: 
@@ -145,7 +171,10 @@ const reducer = (state, { type, payload }) => {
                 alertText: payload.msg,
             };        
         case EDIT_JOB_BEGIN: 
-            return { ...state, isLoading: true };
+            return {
+                ...state,
+                isLoading: true,
+            };
         case EDIT_JOB_SUCCESS:
             return {
                 ...state,
@@ -163,13 +192,17 @@ const reducer = (state, { type, payload }) => {
                 alertText: payload.msg,
             };
         case SHOW_STATS_BEGIN: 
-            return { ...state, isLoading: true, showAlert: false };
+            return {
+                ...state,
+                isLoading: true,
+                showAlert: false,
+            };
         case SHOW_STATS_SUCCESS:
             return { 
-                ...state, 
+                ...state,
                 isLoading: false,
-                stats: payload.stats, 
-                monthlyApplications: payload.monthlyApplications 
+                stats: payload.stats,
+                monthlyApplications: payload.monthlyApplications,
             };
         case CLEAR_FILTERS:
             return {
@@ -177,10 +210,20 @@ const reducer = (state, { type, payload }) => {
                 search: '',
                 searchStatus: 'all',
                 searchType: 'all',
-                sort: 'all',
+                sort: 'latest',
             }
         case CHANGE_PAGE:
             return { ...state, page: payload.page };
+        case GET_CURRENT_USER_BEGIN:
+            return { ...state, userLoading: true, showAlert: false };
+        case GET_CURRENT_USER_SUCCESS:
+            return { 
+                ...state,
+                userLoading: false,
+                user: payload.user,
+                userLocation: payload.location,
+                jobLocation: payload.location,
+            };
         default: 
             return state;
     }

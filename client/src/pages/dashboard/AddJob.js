@@ -23,7 +23,7 @@ const AddJob = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     if (!position || !company || !jobLocation) {
       displayAlert();
       return;
@@ -41,11 +41,16 @@ const AddJob = () => {
     const value = e.target.value;
     handleChange({ name, value });
   } 
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    clearValues();
+  }
   
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{isEditing ? 'edit job' : 'add job  '}</h3>
+        <h3>{isEditing ? 'edit job' : 'add job'}</h3>
         {showAlert && <Alert />}
 
         <div className='form-center'>
@@ -98,10 +103,7 @@ const AddJob = () => {
             </button>
             <button 
               className='btn btn-block clear-btn'
-              onClick={(e) => {
-                e.preventDefault();
-                clearValues();
-              }}
+              onClick={handleClear}
             >
               Clear
             </button>

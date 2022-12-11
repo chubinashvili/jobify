@@ -9,7 +9,7 @@ const createJob = async (req, res) => {
     const { position, company } = req.body;
 
     if(!position || !company) {
-        throw new BadRequestError('Please Provide All values');
+        throw new BadRequestError('Please provide All values');
     }
 
     req.body.createdBy = req.user.userId;
