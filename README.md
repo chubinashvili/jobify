@@ -5,7 +5,7 @@
 Here is the Live Project - [Jobify](https://jobify-k454.onrender.com/)
 
 <p align="center">
-  <img alt="Dashboard" src="images/dashboard.PNG" width="80%">
+  <img alt="Dashboard" src="images/dashboard.PNG" width="60%">
   &nbsp; &nbsp; &nbsp;
 </p>
 <p align="center">
