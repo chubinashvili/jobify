@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../context/appContext';
+import { useDispatch } from 'react-redux';
+import { setEditJob, deleteJob } from '../store/jobs/jobsSlice';
 import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
 
@@ -12,9 +13,14 @@ const Job = ({
   jobLocation,
   jobType,
   createdAt,
-  status 
+  status,
+  page, 
+  search, 
+  searchStatus, 
+  searchType, 
+  sort,
 }) => {
-  const { setEditJob, deleteJob } = useAppContext();
+  const dispatch = useDispatch();
 
   let date = moment(createdAt).format('MMM Do, YYYY');
 
@@ -39,14 +45,14 @@ const Job = ({
               <Link
                 to='/add-job'
                 className='btn edit-btn'
-                onClick={() => setEditJob(_id)}
+                onClick={() => setEditJob(dispatch, _id)}
               >
                 Edit
               </Link>
               <button
                 type='button'
                 className='btn delete-btn'
-                onClick={() => deleteJob(_id)}
+                onClick={() => deleteJob(dispatch, _id, {page, search, searchStatus, searchType, sort})}
               >
                 Delete
               </button>

@@ -1,10 +1,11 @@
+import { useSelector } from 'react-redux'
 import { Navigate } from "react-router-dom";
-import { useAppContext } from "../context/appContext";
 import { Loading } from '../components';
 
 const ProtectedRoute = ({ children }) => {  
-    const { user, userLoading } = useAppContext();
-    
+    const { user, userLoading } = useSelector(
+        state => state.user,
+      )    
     if (userLoading) return <Loading />;
 
     if(!user) {

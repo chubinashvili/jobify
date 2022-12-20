@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { 
   Register,
@@ -11,10 +12,17 @@ import {
   SharedLayout, 
   Stats, 
   AddJob 
-} from './pages/dashboard'
-
+} from './pages/dashboard';
+import { useDispatch } from 'react-redux';
+import { getCurrentUser } from './store/user/userSlice';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getCurrentUser(dispatch);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

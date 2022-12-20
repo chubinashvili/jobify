@@ -1,12 +1,19 @@
 import { Fragment, useEffect } from 'react';
-import { useAppContext } from '../../context/appContext';
+import { showStats } from '../../store/stats/statsSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import { StatsContainer, Loading, ChartsContainer } from '../../components';
 
 const Stats = () => {
-  const { showStats, isLoading, monthlyApplications } = useAppContext();
+  const dispatch = useDispatch();
+  const { monthlyApplications } = useSelector(
+    state => state.stats,
+  );
+  const { isLoading } = useSelector(
+    state => state.alerts,
+  );
 
   useEffect(() => {
-    showStats();
+    showStats(dispatch);
     // eslint-disable-next-line
   }, []);
 

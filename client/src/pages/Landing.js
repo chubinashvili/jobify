@@ -1,12 +1,14 @@
 import { Fragment } from 'react';
+import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom';
 import main from '../assets/images/main.svg';
 import Wrapper from '../assets/wrappers/LandingPage';
 import { Logo } from '../components/index';
-import { useAppContext } from '../context/appContext';
 
 const Landing = () => {
-  const { user } = useAppContext();
+  const { user } = useSelector(
+    state => state.user,
+  )
   return (
     <Fragment>
       {user && <Navigate to="/" />}

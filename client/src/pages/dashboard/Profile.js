@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { FormRow, Alert } from '../../components';
-import { useAppContext } from "../../context/appContext";
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../store/user/userSlice';
+import { displayAlert } from '../../store/alerts/alertsSlice';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
 
 const Profile = () => {
-  const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext();
+  const dispatch = useDispatch();
+  const { user } = useSelector(
+    state => state.user,
+  );
+  const { isLoading, showAlert } = useSelector(
+    state => state.alerts,
+  );
   const [values, setValues] = useState({
     name: user?.name,
     email: user?.email,
@@ -12,7 +20,6 @@ const Profile = () => {
     location: user?.location,
   });
 
-  
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
@@ -21,11 +28,11 @@ const Profile = () => {
     e.preventDefault();
     const { name, email, lastName, location } = values;
     if(!name || !email || !lastName || !location) {
-      displayAlert();
+      displayAlert(dispatch);
       return;
     }
 
-    updateUser(values);
+    updateUser(dispatch, values);
   }
   return (
     <Wrapper>

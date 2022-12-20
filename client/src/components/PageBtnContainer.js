@@ -1,9 +1,13 @@
-import { useAppContext } from "../context/appContext"
+import { useSelector, useDispatch } from 'react-redux';
+import { changePage } from '../store/stats/statsSlice';
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
 import Wrapper from '../assets/wrappers/PageBtnContainer';
 
 const PageBtnContainer = () => {
-  const { numOfPages, page, changePage } = useAppContext();
+  const dispatch = useDispatch();
+  const { numOfPages, page } = useSelector(
+    state => state.stats,
+    );
   
   const pages = Array.from({ length: numOfPages }, (_, index) => {
       return index + 1;
@@ -14,14 +18,14 @@ const PageBtnContainer = () => {
     if (newPage < 1) {
         newPage = 1;
     }
-    changePage(newPage);
+    changePage(dispatch, newPage);
   }
   const nextPage = () => {
     let newPage = page + 1;
     if (newPage > numOfPages) {
         newPage = numOfPages;
     }
-    changePage(newPage);
+    changePage(dispatch, newPage);
   }
 
   return (
@@ -37,7 +41,7 @@ const PageBtnContainer = () => {
                         type="button"
                         className={pageNumber === page ? 'pageBtn active' : 'pageBtn'}
                         key={pageNumber}
-                        onClick={() => changePage(pageNumber)}
+                        onClick={() => changePage(dispatch, pageNumber)}
                     >
                         {pageNumber}
                     </button>

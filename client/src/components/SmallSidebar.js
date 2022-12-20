@@ -1,11 +1,15 @@
 import Wrapper from '../assets/wrappers/SmallSidebar.js';
 import { FaTimes } from 'react-icons/fa';
-import { useAppContext } from '../context/appContext.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleSidebar } from '../store/jobs/jobsSlice';
 import Logo from './Logo.js';
 import NavLinks from './NavLinks.js';
 
 const SmallSidebar = () => {
-  const { showSidebar, toggleSidebar } = useAppContext();
+  const dispatch = useDispatch();
+  const { showSidebar } = useSelector(
+    state => state.jobs,
+  );
   return (
     <Wrapper>
       <div className={showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'}>
@@ -13,14 +17,14 @@ const SmallSidebar = () => {
           <button 
             type='button' 
             className='close-btn' 
-            onClick={() => toggleSidebar(!showSidebar)}
+            onClick={() => toggleSidebar(dispatch)}
           >
             <FaTimes />
           </button>
           <header>
             <Logo />
           </header>
-          <NavLinks toggleSidebar={toggleSidebar} />
+          <NavLinks toggleSidebar={() => toggleSidebar(dispatch)} />
         </div>
       </div>
     </Wrapper>

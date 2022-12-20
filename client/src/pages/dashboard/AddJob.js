@@ -1,13 +1,13 @@
 import { FormRow, Alert, FormRowSelect } from '../../components';
-import { useAppContext } from '../../context/appContext';
+import { useSelector, useDispatch } from 'react-redux';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
+import { handleChange, createJob, editJob, clearValues } from '../../store/jobs/jobsSlice';
+import { displayAlert } from '../../store/alerts/alertsSlice';
 
 const AddJob = () => {
+  const dispatch = useDispatch();
   const {
-    isLoading,
     isEditing,
-    showAlert,
-    displayAlert,
     position,
     company,
     jobLocation,
@@ -15,36 +15,38 @@ const AddJob = () => {
     jobTypeOptions,
     status,
     statusOptions,
-    handleChange,
-    clearValues,
-    createJob,
-    editJob,
-  } = useAppContext();
-  
+    editJobId,
+  } = useSelector(
+    state => state.jobs,
+  )
+
+  const { isLoading, showAlert } = useSelector(state => state.alerts)
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!position || !company || !jobLocation) {
-      displayAlert();
+      displayAlert(dispatch);
       return;
     }
 
+    const job = {  position, company, jobLocation, jobType, status, editJobId };
+
     if (isEditing) {
-      editJob();
+      editJob(dispatch, job);
       return;
     }
-    createJob();
+    createJob(dispatch, job);
   } 
 
   const handleJobInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    handleChange({ name, value });
+    handleChange(dispatch, { name, value });
   } 
 
   const handleClear = (e) => {
     e.preventDefault();
-    clearValues();
+    dispatch(clearValues());
   }
   
   return (

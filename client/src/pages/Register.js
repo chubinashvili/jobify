@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   Logo,
   FormRow,
   Alert
 } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
-import { useAppContext } from '../context/appContext';
+import { setupUser } from '../store/user/userSlice';
+import { displayAlert } from '../store/alerts/alertsSlice';
 
 const initialState = {
   name: '',
@@ -16,9 +18,15 @@ const initialState = {
 };
 
 const Register = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-  const { user, isLoading, showAlert, displayAlert, setupUser, } = useAppContext();
+  const { user } = useSelector(
+    state => state.user,
+  )
+  const { isLoading, showAlert } = useSelector(
+    state => state.alerts
+  )
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -32,23 +40,24 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
     if(!email || !password || (!isMember && !name)) {
-      displayAlert();
+      displayAlert(dispatch);
       return;
     }
     const currentUser = { name, email, password };
     if (isMember) {
-      setupUser({ 
+      setupUser(dispatch, { 
         currentUser, 
         endpoint: 'login', 
         alertText: 'Login Successful!'
       });
     } else {
-      setupUser({ 
+      setupUser(dispatch, { 
         currentUser, 
         endpoint: 'register', 
         alertText: 'User Created!'
       });
     }
+    setValues(initialState);
   }
   
   useEffect(() => {
@@ -99,7 +108,7 @@ const Register = () => {
           className='btn btn-block btn-hipster'
           disabled={isLoading}
           onClick={() => {
-            setupUser({ 
+            setupUser(dispatch, { 
               currentUser: { email: 'testUser@test.com', password: 'secret'}, 
               endpoint: 'login', 
               alertText: 'Login Successful!'
