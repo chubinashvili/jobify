@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSidebar } from '../store/jobs/jobsSlice';
-import { logoutUser } from '../store/user/userSlice';
-import Logo from './Logo.js';
-import Wrapper from '../assets/wrappers/Navbar.js';
+import { toggleSidebar } from '../../store/jobs/jobsSlice';
+import { logoutUser } from '../../store/user/userSlice';
+import Logo from '../logo/Logo.js';
+import Wrapper from '../../assets/wrappers/Navbar.js';
 
 const Navbar = () => {
   const dispatch = useDispatch();

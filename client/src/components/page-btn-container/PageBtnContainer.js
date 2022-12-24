@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changePage } from '../store/stats/statsSlice';
+import { changePage } from '../../store/stats/statsSlice';
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
-import Wrapper from '../assets/wrappers/PageBtnContainer';
+import Wrapper from '../../assets/wrappers/PageBtnContainer';
 
 const PageBtnContainer = () => {
   const dispatch = useDispatch();

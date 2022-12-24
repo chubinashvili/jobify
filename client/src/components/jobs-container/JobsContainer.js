@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getJobs } from '../store/jobs/jobsSlice';
-import Loading from './Loading';
-import Job from './Job';
-import Wrapper from '../assets/wrappers/JobsContainer';
-import PageBtnContainer from './PageBtnContainer';
-import { Alert } from '.';
+import { getJobs } from '../../store/jobs/jobsSlice';
+import Job from '../job/Job';
+import Wrapper from '../../assets/wrappers/JobsContainer';
+import PageBtnContainer from '../page-btn-container/PageBtnContainer';
+import { Alert, Loading } from '..';
 
 const JobsContainer = () => {
     const dispatch = useDispatch();

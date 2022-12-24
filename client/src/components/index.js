@@ -1,15 +1,15 @@
-import Logo from './Logo';
-import FormRow from './FormRow';
-import Alert from './Alert';
-import Navbar from './Navbar';
-import SmallSidebar from './SmallSidebar';
-import BigSidebar from './BigSidebar';
-import FormRowSelect from './FormRowSelect';
-import SearchContainer from './SearchContainer';
-import JobsContainer from './JobsContainer';
-import Loading from './Loading';
-import StatsContainer from './StatsContainer'
-import ChartsContainer from './ChartsContainer'
+import Logo from './logo/Logo';
+import FormRow from './form-row/FormRow';
+import Alert from './alert/Alert';
+import Navbar from './navbar/Navbar';
+import SmallSidebar from './small-sidebar/SmallSidebar';
+import BigSidebar from './big-sidebar/BigSidebar';
+import FormRowSelect from './form-row-select/FormRowSelect';
+import SearchContainer from './search-container/SearchContainer';
+import JobsContainer from './jobs-container/JobsContainer';
+import Loading from './loading/Loading';
+import StatsContainer from './stats-container/StatsContainer'
+import ChartsContainer from './charts-container/ChartsContainer'
 
 export { 
     Logo, 

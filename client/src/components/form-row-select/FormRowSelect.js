@@ -6,6 +6,7 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
         </label>
 
         <select
+            data-testid='select-element'
             name={name}
             value={value}
             onChange={handleChange}
@@ -13,7 +14,10 @@ const FormRowSelect = ({ labelText, name, value, handleChange, list }) => {
         >
         {list.map((itemValue, index) => {
             return (
-            <option key={index} value={itemValue}>
+            <option
+                data-testid='select-option'
+                key={index} 
+                value={itemValue}>
                 {itemValue}
             </option>
             )

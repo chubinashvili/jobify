@@ -2,14 +2,15 @@ const FormRow = ({ name, type, value, handleChange, labelText }) => {
   return (
     <div className='form-row'>
         <label htmlFor={name} className='form-label'>
-            {labelText || name}
+          {labelText || name}
         </label>
         <input 
-            type={type}
-            value={value}
-            name={name}
-            onChange={handleChange}
-            className='form-input'
+          data-testid='input-element'
+          type={type}
+          value={value}
+          name={name}
+          onChange={handleChange}
+          className='form-input'
         />
     </div>
   )

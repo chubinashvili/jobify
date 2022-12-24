@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import NavLinks from './NavLinks';
-import Logo from './Logo';
-import Wrapper from '../assets/wrappers/BigSidebar';
+import NavLinks from '../nav-links/NavLinks';
+import Logo from '../logo/Logo';
+import Wrapper from '../../assets/wrappers/BigSidebar';
 
 const BigSidebar = () => {
   const { showSidebar } = useSelector(

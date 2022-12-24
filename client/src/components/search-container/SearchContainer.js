@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import { FormRow, FormRowSelect } from '.';
+import { FormRow, FormRowSelect } from '..';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearFilters, handleChange } from '../store/jobs/jobsSlice';
-import Wrapper from '../assets/wrappers/SearchContainer';
+import { clearFilters, handleChange } from '../../store/jobs/jobsSlice';
+import Wrapper from '../../assets/wrappers/SearchContainer';
 
 const SearchContainer = () => {
   const dispatch = useDispatch();

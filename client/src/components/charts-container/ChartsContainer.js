@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import BarChart from './BarChart';
-import AreaChart from './AreaChart';
+import BarChart from '../bar-chart/BarChart';
+import AreaChart from '../area-chart/AreaChart';
 import { useSelector } from 'react-redux';
-import Wrapper from '../assets/wrappers/ChartsContainer';
+import Wrapper from '../../assets/wrappers/ChartsContainer';
 
 const ChartsContainer = () => {
   const [barChart, setBarChart] = useState(true);
